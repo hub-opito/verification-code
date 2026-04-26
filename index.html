@@ -13,7 +13,7 @@ body {
 
 .container {
   max-width: 550px;
-  margin: 80px auto;
+  margin: 100px auto;
   background: white;
   padding: 40px;
   border-radius: 16px;
@@ -22,8 +22,8 @@ body {
 }
 
 .icon {
-  font-size: 50px;
-  margin-bottom: 10px;
+  font-size: 60px;
+  margin-bottom: 15px;
 }
 
 .valid {
@@ -42,8 +42,9 @@ h2 {
   text-align: left;
   margin-top: 25px;
   background: #f8f9fa;
-  padding: 15px;
+  padding: 18px;
   border-radius: 10px;
+  font-size: 15px;
 }
 
 .data p {
@@ -70,7 +71,7 @@ h2 {
 
 <script>
 
-// DATABASE
+// DATABASE (EDIT SESUAI DATA KAMU)
 const validData = [
   {
     name: "Zainul Abidin",
@@ -81,7 +82,7 @@ const validData = [
   }
 ];
 
-// AMBIL PARAMETER
+// AMBIL PARAMETER URL
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
 const code = params.get("code");
@@ -89,7 +90,7 @@ const code = params.get("code");
 // CARI DATA
 let found = validData.find(d => d.name === name && d.code === code);
 
-// TAMPILKAN HASIL
+// OUTPUT
 if(name && code && found) {
   document.getElementById("result").innerHTML = `
     <div class="icon valid">✔</div>
@@ -107,7 +108,7 @@ if(name && code && found) {
   document.getElementById("result").innerHTML = `
     <div class="icon invalid">✖</div>
     <h2 class="invalid">Certificate NOT FOUND</h2>
-    <p>Please check your certificate details.</p>
+    <p>Invalid or missing certificate data.</p>
   `;
 }
 
