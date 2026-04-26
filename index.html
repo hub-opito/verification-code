@@ -7,47 +7,48 @@
 
 <style>
 body {
+  margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #e9eff5, #dfe7ef);
-  margin: 0;
 }
 
+/* CONTAINER */
 .container {
   max-width: 600px;
-  margin: 80px auto;
-  background: white;
+  margin: 100px auto;
+  background: #ffffff;
   padding: 40px;
   border-radius: 18px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.15);
   text-align: center;
 }
 
-/* HEADER */
-.header {
-  margin-bottom: 20px;
-}
-
-.header h1 {
-  margin: 0;
-  font-size: 22px;
-  letter-spacing: 1px;
-}
-
-/* STATUS ICON */
+/* ICON */
 .icon {
-  font-size: 60px;
-  margin: 15px 0;
+  font-size: 65px;
+  color: #28a745;
+  margin-bottom: 10px;
 }
 
-.valid { color: #28a745; }
-.invalid { color: #dc3545; }
+/* TITLE */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+/* SUB */
+.sub {
+  color: #555;
+  margin-bottom: 25px;
+}
 
 /* DATA BOX */
 .data {
   text-align: left;
-  margin-top: 25px;
   background: #f4f6f9;
-  padding: 18px;
+  padding: 20px;
   border-radius: 12px;
 }
 
@@ -58,7 +59,7 @@ body {
 
 /* FOOTER */
 .footer {
-  margin-top: 30px;
+  margin-top: 25px;
   font-size: 12px;
   color: gray;
 }
@@ -69,53 +70,23 @@ body {
 
 <div class="container">
 
-  <div class="header">
-    <h1>Certificate Verification</h1>
-  </div>
+  <div class="icon">✔</div>
+  <div class="title">Certificate is VALID</div>
+  <div class="sub">This certificate has been successfully verified.</div>
 
-  <div id="result"></div>
+  <div class="data">
+    <p><b>Name:</b> Wiji</p>
+    <p><b>Certificate Code:</b> OPITOYB6G82AZO</p>
+    <p><b>Training:</b> Banksman and Slinger Initial Training</p>
+    <p><b>Issued:</b> 15 January 2024</p>
+    <p><b>Expire:</b> 14 September 2026</p>
+  </div>
 
   <div class="footer">
     Official Certificate Verification System
   </div>
 
 </div>
-
-<script>
-
-// AMBIL PARAMETER DARI URL
-const params = new URLSearchParams(window.location.search);
-
-const name = params.get("name");
-const code = params.get("code");
-
-// TAMPILKAN HASIL
-if(name && code){
-
-  document.getElementById("result").innerHTML = `
-    <div class="icon valid">✔</div>
-    <h2 class="valid">Certificate is VALID</h2>
-
-    <div class="data">
-      <p><b>Name:</b> ${decodeURIComponent(name)}</p>
-      <p><b>Certificate Code:</b> ${code}</p>
-      <p><b>Status:</b> Verified</p>
-      <p><b>Issued:</b> 15 January 2024</p>
-      <p><b>Expire:</b> 14 September 2026</p>
-    </div>
-  `;
-
-} else {
-
-  document.getElementById("result").innerHTML = `
-    <div class="icon invalid">✖</div>
-    <h2 class="invalid">Certificate NOT FOUND</h2>
-    <p>Please scan a valid certificate QR code.</p>
-  `;
-
-}
-
-</script>
 
 </body>
 </html>
