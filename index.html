@@ -49,27 +49,26 @@
 </div>
 
 <script>
-  // Ambil parameter dari URL
   const params = new URLSearchParams(window.location.search);
-  const nameParam = params.get("name");
-  const codeParam = params.get("code");
+  const name = params.get("name");
+  const code = params.get("code");
 
-  // Isi otomatis ke input
-  if(nameParam) document.getElementById("name").value = nameParam;
-  if(codeParam) document.getElementById("code").value = codeParam;
-
-  function check() {
-    let name = document.getElementById("name").value;
-    let code = document.getElementById("code").value;
-
-    // Data valid (bisa kamu tambah sendiri)
+  function check(name, code) {
     if(name === "Zainul Abidin" && code === "OPITO0RPL60CJTR") {
       document.getElementById("result").innerHTML =
-        "<b style='color:green'>Certificate is VALID</b><br>Training completed<br>Expire: 2028";
+        "<h3 style='color:green'>Certificate is VALID</h3>" +
+        "<p><b>Nama:</b> " + name + "</p>" +
+        "<p>Training completed</p>" +
+        "<p>Expire: 2028</p>";
     } else {
       document.getElementById("result").innerHTML =
-        "<b style='color:red'>Data tidak ditemukan</b>";
+        "<h3 style='color:red'>Data tidak ditemukan</h3>";
     }
+  }
+
+  // AUTO JALAN SAAT HALAMAN DIBUKA
+  if(name && code) {
+    check(name, code);
   }
 </script>
 
