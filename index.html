@@ -1,75 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Certificate Validation</title>
   <style>
     body {
-      font-family: Arial;
-      background: #f5f5f5;
-      text-align: center;
-      padding: 40px;
+      font-family: Arial, sans-serif;
+      background: #eef3f8;
+      margin: 0;
+      padding: 0;
     }
-    .box {
+
+    .container {
+      max-width: 500px;
+      margin: 80px auto;
       background: white;
       padding: 30px;
-      border-radius: 10px;
-      width: 300px;
-      margin: auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      text-align: center;
     }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
+
+    h2 {
+      margin-bottom: 20px;
     }
-    button {
-      padding: 10px;
-      width: 100%;
-      background: #007BFF;
-      color: white;
-      border: none;
-      cursor: pointer;
+
+    .status-valid {
+      color: green;
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 15px;
     }
-    #result {
+
+    .status-invalid {
+      color: red;
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .data {
+      text-align: left;
       margin-top: 20px;
+    }
+
+    .data p {
+      margin: 8px 0;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: gray;
     }
   </style>
 </head>
 <body>
 
-<div class="box">
-  <h2>Validate Certificate</h2>
-
-  <input type="text" id="name" placeholder="Nama">
-  <input type="text" id="code" placeholder="Certificate Code">
-
-  <button onclick="check()">Validate</button>
+<div class="container">
+  <h2>Certificate Validation</h2>
 
   <div id="result"></div>
+
+  <div class="footer">
+    This is a certificate verification system
+  </div>
 </div>
 
 <script>
+window.onload = function() {
   const params = new URLSearchParams(window.location.search);
   const name = params.get("name");
   const code = params.get("code");
 
-  function check(name, code) {
-    if(name === "Zainul Abidin" && code === "OPITO0RPL60CJTR") {
-      document.getElementById("result").innerHTML =
-        "<h3 style='color:green'>Certificate is VALID</h3>" +
-        "<p><b>Nama:</b> " + name + "</p>" +
-        "<p>Training completed</p>" +
-        "<p>Expire: 2028</p>";
-    } else {
-      document.getElementById("result").innerHTML =
-        "<h3 style='color:red'>Data tidak ditemukan</h3>";
+  // DATA VALID (bisa kamu tambah)
+  const validData = [
+    {
+      name: "Zainul Abidin",
+      code: "OPITO0RPL60CJTR",
+      training: "Safety Training",
+      issue: "2026",
+      expire: "2028"
     }
-  }
+  ];
 
-  // AUTO JALAN SAAT HALAMAN DIBUKA
-  if(name && code) {
-    check(name, code);
+  let found = validData.find(d => d.name === name && d.code === code);
+
+  if(name && code && found) {
+    document.getElementById("result").innerHTML = 
+      <div class="status-valid">✔ Certificate is VALID</div>
+      <div class="data">
+        <p><b>Name:</b> ${found.name}</p>
+        <p><b>Certificate Code:</b> ${found.code}</p>
+        <p><b>Training:</b> ${found.training}</p>
+        <p><b>Issued:</b> ${found.issue}</p>
+        <p><b>Expire:</b> ${found.expire}</p>
+      </div>
+    ;
+  } else {
+    document.getElementById("result").innerHTML = 
+      <div class="status-invalid">✖ Certificate NOT FOUND</div>
+    ;
   }
+}
 </script>
 
 </body>
