@@ -8,7 +8,6 @@
 body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #eef3f8, #dfe9f3);
-  margin: 0;
 }
 
 .container {
@@ -21,40 +20,15 @@ body {
   text-align: center;
 }
 
-.icon {
-  font-size: 60px;
-  margin-bottom: 15px;
-}
-
-.valid {
-  color: #28a745;
-}
-
-.invalid {
-  color: #dc3545;
-}
-
-h2 {
-  margin: 10px 0;
-}
+.valid { color: #28a745; }
+.invalid { color: #dc3545; }
 
 .data {
   text-align: left;
-  margin-top: 25px;
+  margin-top: 20px;
   background: #f8f9fa;
-  padding: 18px;
+  padding: 15px;
   border-radius: 10px;
-  font-size: 15px;
-}
-
-.data p {
-  margin: 8px 0;
-}
-
-.footer {
-  margin-top: 30px;
-  font-size: 12px;
-  color: gray;
 }
 </style>
 
@@ -63,15 +37,10 @@ h2 {
 
 <div class="container">
   <div id="result"></div>
-
-  <div class="footer">
-    Official Certificate Verification System
-  </div>
 </div>
 
 <script>
 
-// DATABASE (EDIT SESUAI DATA KAMU)
 const validData = [
   {
     name: "Zainul Abidin",
@@ -82,23 +51,30 @@ const validData = [
   }
 ];
 
-// AMBIL PARAMETER URL
+// AMBIL PARAMETER
 const params = new URLSearchParams(window.location.search);
-const name = params.get("name");
-const code = params.get("code");
+
+// NORMALISASI (INI KUNCI NYA)
+const name = (params.get("name") || "").trim().toLowerCase();
+const code = (params.get("code") || "").trim().toUpperCase();
 
 // CARI DATA
-let found = validData.find(d => d.name === name && d.code === code);
+let found = validData.find(d => 
+  d.name.toLowerCase() === name &&
+  d.code.toUpperCase() === code
+);
+
+// DEBUG (kalau masih error)
+console.log("URL Name:", name);
+console.log("URL Code:", code);
 
 // OUTPUT
-if(name && code && found) {
+if(found) {
   document.getElementById("result").innerHTML = `
-    <div class="icon valid">✔</div>
-    <h2 class="valid">Certificate is VALID</h2>
-
+    <h2 class="valid">✔ Certificate VALID</h2>
     <div class="data">
       <p><b>Name:</b> ${found.name}</p>
-      <p><b>Certificate Code:</b> ${found.code}</p>
+      <p><b>Code:</b> ${found.code}</p>
       <p><b>Training:</b> ${found.training}</p>
       <p><b>Issued:</b> ${found.issue}</p>
       <p><b>Expire:</b> ${found.expire}</p>
@@ -106,9 +82,8 @@ if(name && code && found) {
   `;
 } else {
   document.getElementById("result").innerHTML = `
-    <div class="icon invalid">✖</div>
-    <h2 class="invalid">Certificate NOT FOUND</h2>
-    <p>Invalid or missing certificate data.</p>
+    <h2 class="invalid">✖ NOT FOUND</h2>
+    <p>Check URL parameter</p>
   `;
 }
 
