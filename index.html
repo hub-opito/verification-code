@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Certificate Validation</title>
+</head>
+<body>
+  <h2>Validate Certificate</h2>
+
+  <input type="text" id="name" placeholder="Nama">
+  <input type="text" id="code" placeholder="Certificate Code">
+  <button onclick="check()">Validate</button>
+
+  <p id="result"></p>
+
+  <script>
+    function check() {
+      let name = document.getElementById("name").value;
+      let code = document.getElementById("code").value;
+
+      if(name === "Zainul Abidin" && code === "ABC123") {
+        document.getElementById("result").innerHTML =
+          "Certificate is VALID<br>Training completed on 2026";
+      } else {
+        document.getElementById("result").innerHTML =
+          "Data tidak ditemukan";
+      }
+    }
+  </script>
+</body>
+</html>
