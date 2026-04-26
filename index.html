@@ -2,29 +2,76 @@
 <html>
 <head>
   <title>Certificate Validation</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+      text-align: center;
+      padding: 40px;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      background: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
+
+<div class="box">
   <h2>Validate Certificate</h2>
 
   <input type="text" id="name" placeholder="Nama">
   <input type="text" id="code" placeholder="Certificate Code">
+
   <button onclick="check()">Validate</button>
 
-  <p id="result"></p>
+  <div id="result"></div>
+</div>
 
-  <script>
-    function check() {
-      let name = document.getElementById("name").value;
-      let code = document.getElementById("code").value;
+<script>
+  // Ambil parameter dari URL
+  const params = new URLSearchParams(window.location.search);
+  const nameParam = params.get("name");
+  const codeParam = params.get("code");
 
-      if(name === "Zainul Abidin" && code === "ABC123") {
-        document.getElementById("result").innerHTML =
-          "Certificate is VALID<br>Training completed on 2026";
-      } else {
-        document.getElementById("result").innerHTML =
-          "Data tidak ditemukan";
-      }
+  // Isi otomatis ke input
+  if(nameParam) document.getElementById("name").value = nameParam;
+  if(codeParam) document.getElementById("code").value = codeParam;
+
+  function check() {
+    let name = document.getElementById("name").value;
+    let code = document.getElementById("code").value;
+
+    // Data valid (bisa kamu tambah sendiri)
+    if(name === "Zainul Abidin" && code === "OPITO0RPL60CJTR") {
+      document.getElementById("result").innerHTML =
+        "<b style='color:green'>Certificate is VALID</b><br>Training completed<br>Expire: 2028";
+    } else {
+      document.getElementById("result").innerHTML =
+        "<b style='color:red'>Data tidak ditemukan</b>";
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
