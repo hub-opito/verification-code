@@ -1,93 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Certificate Validation</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #eef3f8;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<title>Certificate Validation</title>
 
-    .container {
-      max-width: 500px;
-      margin: 80px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #eef3f8;
+}
 
-    h2 {
-      margin-bottom: 20px;
-    }
+.container {
+  max-width: 500px;
+  margin: 80px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
 
-    .status-valid {
-      color: green;
-      font-weight: bold;
-      font-size: 20px;
-      margin-bottom: 15px;
-    }
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
 
-    .status-invalid {
-      color: red;
-      font-weight: bold;
-      font-size: 20px;
-      margin-bottom: 15px;
-    }
+button {
+  padding: 10px 20px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-    .data {
-      text-align: left;
-      margin-top: 20px;
-    }
+.status-valid {
+  color: green;
+  font-weight: bold;
+  font-size: 20px;
+}
 
-    .data p {
-      margin: 8px 0;
-    }
+.status-invalid {
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+}
 
-    .footer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: gray;
-    }
-  </style>
+.data {
+  text-align: left;
+  margin-top: 20px;
+}
+</style>
+
 </head>
 <body>
 
 <div class="container">
   <h2>Certificate Validation</h2>
 
-  <div id="result"></div>
+  <input type="text" id="name" placeholder="Enter Name">
+  <input type="text" id="code" placeholder="Enter Certificate Code">
 
-  <div class="footer">
-    This is a certificate verification system
-  </div>
+  <br>
+  <button onclick="validateCert()">Validate</button>
+
+  <div id="result"></div>
 </div>
 
 <script>
+
+// DATA VALID
+const validData = [
+  {
+    name: "Zainul Abidin",
+    code: "OPITO0RPL60CJTR",
+    training: "Safety Training",
+    issue: "2026",
+    expire: "2028"
+  }
+];
+
+// AUTO ISI DARI URL
 window.onload = function() {
   const params = new URLSearchParams(window.location.search);
   const name = params.get("name");
   const code = params.get("code");
 
-  // DATA VALID (bisa kamu tambah)
-  const validData = [
-    {
-      name: "Zainul Abidin",
-      code: "OPITO0RPL60CJTR",
-      training: "Safety Training",
-      issue: "2026",
-      expire: "2028"
-    }
-  ];
+  if(name) document.getElementById("name").value = name;
+  if(code) document.getElementById("code").value = code;
+
+  // OPTIONAL: AUTO VALIDATE LANGSUNG
+  if(name && code){
+    validateCert();
+  }
+};
+
+// FUNCTION VALIDASI
+function validateCert() {
+  const name = document.getElementById("name").value;
+  const code = document.getElementById("code").value;
 
   let found = validData.find(d => d.name === name && d.code === code);
 
-  if(name && code && found) {
-    document.getElementById("result").innerHTML = 
+  if(found) {
+    document.getElementById("result").innerHTML = `
       <div class="status-valid">✔ Certificate is VALID</div>
       <div class="data">
         <p><b>Name:</b> ${found.name}</p>
@@ -96,13 +115,14 @@ window.onload = function() {
         <p><b>Issued:</b> ${found.issue}</p>
         <p><b>Expire:</b> ${found.expire}</p>
       </div>
-    ;
+    `;
   } else {
-    document.getElementById("result").innerHTML = 
+    document.getElementById("result").innerHTML = `
       <div class="status-invalid">✖ Certificate NOT FOUND</div>
-    ;
+    `;
   }
 }
+
 </script>
 
 </body>
