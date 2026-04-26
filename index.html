@@ -9,37 +9,51 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #e9eff5, #dfe7ef);
+  background: linear-gradient(135deg, #e8eef5, #dce6f1);
 }
 
 /* CONTAINER */
 .container {
-  max-width: 600px;
-  margin: 100px auto;
-  background: #ffffff;
-  padding: 40px;
+  max-width: 650px;
+  margin: 80px auto;
+  background: #fff;
   border-radius: 18px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+/* HEADER */
+.header {
+  background: #0d6efd;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+/* BODY */
+.content {
+  padding: 40px;
   text-align: center;
 }
 
-/* ICON */
+/* SUCCESS ICON */
 .icon {
-  font-size: 65px;
+  font-size: 70px;
   color: #28a745;
-  margin-bottom: 10px;
 }
 
-/* TITLE */
-.title {
-  font-size: 24px;
+/* STATUS */
+.status {
+  font-size: 26px;
   font-weight: bold;
   color: #28a745;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
-/* SUB */
-.sub {
+/* DESC */
+.desc {
   color: #555;
   margin-bottom: 25px;
 }
@@ -57,11 +71,24 @@ body {
   font-size: 15px;
 }
 
+/* BADGE */
+.badge {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px 16px;
+  background: #28a745;
+  color: white;
+  border-radius: 50px;
+  font-size: 13px;
+}
+
 /* FOOTER */
 .footer {
-  margin-top: 25px;
+  text-align: center;
+  padding: 15px;
   font-size: 12px;
   color: gray;
+  border-top: 1px solid #eee;
 }
 </style>
 
@@ -70,20 +97,30 @@ body {
 
 <div class="container">
 
-  <div class="icon">✔</div>
-  <div class="title">Certificate is VALID</div>
-  <div class="sub">This certificate has been successfully verified.</div>
+  <div class="header">
+    OFFICIAL CERTIFICATE VERIFICATION
+  </div>
 
-  <div class="data">
-    <p><b>Name:</b> Wiji</p>
-    <p><b>Certificate Code:</b> OPITOYB6G82AZO</p>
-    <p><b>Training:</b> Banksman and Slinger Initial Training</p>
-    <p><b>Issued:</b> 15 January 2024</p>
-    <p><b>Expire:</b> 14 September 2026</p>
+  <div class="content">
+
+    <div class="icon">✔</div>
+    <div class="status">Certificate is VALID</div>
+    <div class="desc">This certificate has been successfully verified in our system.</div>
+
+    <div class="data">
+      <p><b>Name:</b> Wiji</p>
+      <p><b>Certificate Code:</b> OPITOYB6G82AZO</p>
+      <p><b>Training:</b> Banksman and Slinger Initial Training</p>
+      <p><b>Issued Date:</b> 15 January 2024</p>
+      <p><b>Expiry Date:</b> 14 September 2026</p>
+    </div>
+
+    <div class="badge">✔ Verified & Authentic</div>
+
   </div>
 
   <div class="footer">
-    Official Certificate Verification System
+    © Certificate Verification System
   </div>
 
 </div>
