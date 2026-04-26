@@ -6,52 +6,54 @@
 
 <style>
 body {
-  font-family: Arial, sans-serif;
-  background: #eef3f8;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #eef3f8, #dfe9f3);
+  margin: 0;
 }
 
 .container {
-  max-width: 500px;
+  max-width: 550px;
   margin: 80px auto;
   background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   text-align: center;
 }
 
-input {
-  width: 90%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.icon {
+  font-size: 50px;
+  margin-bottom: 10px;
 }
 
-button {
-  padding: 10px 20px;
-  border: none;
-  background: #007bff;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
+.valid {
+  color: #28a745;
 }
 
-.status-valid {
-  color: green;
-  font-weight: bold;
-  font-size: 20px;
+.invalid {
+  color: #dc3545;
 }
 
-.status-invalid {
-  color: red;
-  font-weight: bold;
-  font-size: 20px;
+h2 {
+  margin: 10px 0;
 }
 
 .data {
   text-align: left;
-  margin-top: 20px;
+  margin-top: 25px;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.data p {
+  margin: 8px 0;
+}
+
+.footer {
+  margin-top: 30px;
+  font-size: 12px;
+  color: gray;
 }
 </style>
 
@@ -59,20 +61,16 @@ button {
 <body>
 
 <div class="container">
-  <h2>Certificate Validation</h2>
-
-  <input type="text" id="name" placeholder="Enter Name">
-  <input type="text" id="code" placeholder="Enter Certificate Code">
-
-  <br>
-  <button onclick="validateCert()">Validate</button>
-
   <div id="result"></div>
+
+  <div class="footer">
+    Official Certificate Verification System
+  </div>
 </div>
 
 <script>
 
-// DATA VALID
+// DATABASE
 const validData = [
   {
     name: "Zainul Abidin",
@@ -83,44 +81,34 @@ const validData = [
   }
 ];
 
-// AUTO ISI DARI URL
-window.onload = function() {
-  const params = new URLSearchParams(window.location.search);
-  const name = params.get("name");
-  const code = params.get("code");
+// AMBIL PARAMETER
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
+const code = params.get("code");
 
-  if(name) document.getElementById("name").value = name;
-  if(code) document.getElementById("code").value = code;
+// CARI DATA
+let found = validData.find(d => d.name === name && d.code === code);
 
-  // OPTIONAL: AUTO VALIDATE LANGSUNG
-  if(name && code){
-    validateCert();
-  }
-};
+// TAMPILKAN HASIL
+if(name && code && found) {
+  document.getElementById("result").innerHTML = `
+    <div class="icon valid">✔</div>
+    <h2 class="valid">Certificate is VALID</h2>
 
-// FUNCTION VALIDASI
-function validateCert() {
-  const name = document.getElementById("name").value;
-  const code = document.getElementById("code").value;
-
-  let found = validData.find(d => d.name === name && d.code === code);
-
-  if(found) {
-    document.getElementById("result").innerHTML = `
-      <div class="status-valid">✔ Certificate is VALID</div>
-      <div class="data">
-        <p><b>Name:</b> ${found.name}</p>
-        <p><b>Certificate Code:</b> ${found.code}</p>
-        <p><b>Training:</b> ${found.training}</p>
-        <p><b>Issued:</b> ${found.issue}</p>
-        <p><b>Expire:</b> ${found.expire}</p>
-      </div>
-    `;
-  } else {
-    document.getElementById("result").innerHTML = `
-      <div class="status-invalid">✖ Certificate NOT FOUND</div>
-    `;
-  }
+    <div class="data">
+      <p><b>Name:</b> ${found.name}</p>
+      <p><b>Certificate Code:</b> ${found.code}</p>
+      <p><b>Training:</b> ${found.training}</p>
+      <p><b>Issued:</b> ${found.issue}</p>
+      <p><b>Expire:</b> ${found.expire}</p>
+    </div>
+  `;
+} else {
+  document.getElementById("result").innerHTML = `
+    <div class="icon invalid">✖</div>
+    <h2 class="invalid">Certificate NOT FOUND</h2>
+    <p>Please check your certificate details.</p>
+  `;
 }
 
 </script>
